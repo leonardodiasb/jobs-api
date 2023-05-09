@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  contact: {}
+  version: '1.0'
+servers:
+- url: http://example.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: register
+      operationId: register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/registerrequest'
+              - example:
+                  name: test
+                  email: test1@gmail.com
+                  password: secret
+            example:
+              name: test
+              email: test1@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/loginrequest'
+              - example:
+                  email: test@gmail.com
+                  password: secret
+            example:
+              email: test@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    post:
+      tags:
+      - Jobs
+      summary: create jobs
+      operationId: createjobs
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/createjobsrequest'
+              - example:
+                  company: apple
+                  position: backend
+            example:
+              company: apple
+              position: backend
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    get:
+      tags:
+      - Jobs
+      summary: get all jobs
+      operationId: getalljobs
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: The user ID
+    get:
+      tags:
+      - Jobs
+      summary: get single job
+      operationId: getsinglejob
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      tags:
+      - Jobs
+      summary: update job
+      operationId: updatejob
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/updatejobrequest'
+              - example:
+                  company: company 2
+                  position: second
+            example:
+              company: company 2
+              position: second
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Jobs
+      summary: delete single job
+      operationId: deletesinglejob
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    registerrequest:
+      title: registerrequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: test
+        email: test1@gmail.com
+        password: secret
+    loginrequest:
+      title: loginrequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: test@gmail.com
+        password: secret
+    createjobsrequest:
+      title: createjobsrequest
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: apple
+        position: backend
+    updatejobrequest:
+      title: updatejobrequest
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: company 2
+        position: second
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: Jobs
+  description: ''
